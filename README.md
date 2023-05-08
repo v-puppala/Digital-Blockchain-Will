@@ -29,3 +29,4 @@ This product will streamline the process, by offering a cheaper end-to-end servi
 
 **Workflow**
 
+The customer first relays their social security number to verify they are who they say they are. Then they relay their deeds/proofs of ownership to verify that they do indeed own the assets/properties they claim to own. This information will be stored in a SQL database and will be verified by the service provider, via manually cross-referencing public records.
