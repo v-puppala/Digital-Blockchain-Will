@@ -42,8 +42,8 @@ The customer first relays their social security number to verify they are who th
 
 **Division of Labor**
 
-Vishal: Frontend Python
+Vishal: Frontend Python for Owner
 
-Bethel: Conversion to Stablecoin/Addressing Ethereum Fluctuations
+Bethel: Frontend Python for Beneficiaries
 
 
