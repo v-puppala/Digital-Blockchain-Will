@@ -24,11 +24,14 @@ contract WillToken is ERC721Full {
         string memory ssn,
         string memory dob,
         string memory assetname,
-        uint256 assetvalue
+        uint256 assetvalue,
+        string memory tokenURI
     ) public returns (uint256) {
         uint256 tokenID = totalSupply();
 
         _mint(owner, tokenID);
+
+        _setTokenURI(tokenID, tokenURI);
 
         land[tokenID] = RealEstate(name, ssn, dob, assetname, assetvalue);
 
