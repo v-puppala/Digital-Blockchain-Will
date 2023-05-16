@@ -75,4 +75,4 @@ class RealEstate:
     dob: str
     assetName: str
     AssetVal: int
-token=RealEstate(name="Vishal",ssn="1234567",dob="05/16/2023",AssetVal=5)
+token=RealEstate(name="Vishal",ssn="1234567",assetName="house",dob="05/16/2023",AssetVal=5)
