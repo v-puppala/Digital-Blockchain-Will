@@ -37,7 +37,6 @@ The customer first relays their social security number to verify they are who th
 It is a nonfungible token with each token possessing the following attributes: name, ssn, DOB, name of asset, value of asset (fiat)
 
 
-
 **Division of Labor**
 
 Vishal: Frontend Python for Owner
@@ -48,3 +47,11 @@ Akaron: Developed the Real Estate Smart Contract
 
 Marvin: Developed the Stock Smart Contract
 
+
+
+**Results**
+
+
+Streamlit Interface
+
+![UI_picture](https://github.com/v-puppala/Digital-Blockchain-Will/assets/54637095/77792fbc-353d-41f4-8b02-cad5daf1808c)
