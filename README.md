@@ -44,4 +44,7 @@ Vishal: Frontend Python for Owner
 
 Bethel: Frontend Python for Beneficiaries
 
+Akaron: Developed the Real Estate Smart Contract
+
+Marvin: Developed the Stock Smart Contract
 
