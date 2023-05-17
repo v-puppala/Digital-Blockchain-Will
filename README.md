@@ -55,3 +55,8 @@ Marvin: Developed the Stock Smart Contract
 Streamlit Interface
 
 ![UI_picture](https://github.com/v-puppala/Digital-Blockchain-Will/assets/54637095/77792fbc-353d-41f4-8b02-cad5daf1808c)
+
+Transaction Receipt
+
+![Transaction_receipt](https://github.com/v-puppala/Digital-Blockchain-Will/assets/54637095/116651f8-a506-4b0c-a614-9b795e4ac720)
+
