@@ -47,6 +47,9 @@ Akaron: Developed the Real Estate Smart Contract
 
 Marvin: Developed the Stock Smart Contract
 
+**New Package Used**
+
+Used Cryptodome to encrypt social security number using AES (see form.py under Vishal)
 
 
 **Results**
