@@ -39,7 +39,7 @@ It is a nonfungible token with each token possessing the following attributes: n
 
 **Division of Labor**
 
-Vishal: Frontend Python for Owner
+Vishal: Frontend Python for Owner 
 
 Bethel: Frontend Python for Beneficiaries
 
@@ -59,4 +59,12 @@ Streamlit Interface
 Transaction Receipt
 
 ![Transaction_receipt](https://github.com/v-puppala/Digital-Blockchain-Will/assets/54637095/116651f8-a506-4b0c-a614-9b795e4ac720)
+
+
+**Front Demo**
+
+The following is a demo of Vishal's code: form.py which provides a UI for the owner of the will to input attributes regarding their personal information and assets that will be displayed on the tokens.
+
+
+[streamlit-Demo.webm](https://github.com/v-puppala/Digital-Blockchain-Will/assets/54637095/601f701d-64b0-4dee-ad3b-defa971e863c)
 
