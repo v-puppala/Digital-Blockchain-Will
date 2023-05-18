@@ -68,3 +68,4 @@ The following is a demo of Vishal's code: form.py which provides a UI for the ow
 
 [streamlit-Demo.webm](https://github.com/v-puppala/Digital-Blockchain-Will/assets/54637095/601f701d-64b0-4dee-ad3b-defa971e863c)
 
+**Check out STOCk_TOKEN_VIDEO_CLIP.mov** for demo of Solidity backend smart contract for financial asset tokenization/registration. Is a repository file.
