@@ -13,6 +13,7 @@ from pathlib import Path
 from dataclasses import dataclass
 
 
+
 # @dataclass
 # class RealEstate:
 #     name: str
@@ -64,6 +65,19 @@ ssn_again=st.sidebar.text_input("Enter your Social Security Number Again:", type
 if ssn_again:
     if ssn!=ssn_again:
         st.error("SSNs don't match")
+        
+#For our new technology, and inspired by Gabe's question during the presentation today
+#The new package/technology we're using is Cryptodome to encrypt the ssn into a private key
+#with this extra layer of encryption, the ssn number will be represented as a ciphertext whose value is incredibly computationally difficult to decode
+
+
+from Crypto.Cipher import AES
+from Crypto.Random import get_random_bytes
+
+key = get_random_bytes(16)
+cipher = AES.new(key, AES.MODE_EAX) #generate new cypher based on AES (Advanced encryption standard) sprecification
+encoding=ssn.encode() #convert to byte code
+ssn,public=cipher.encrypt_and_digest(encoding) #encrypt encoded data
 
 # address input
 address = st.sidebar.text_input("Enter your address")
