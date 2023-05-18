@@ -13,22 +13,19 @@ from pathlib import Path
 from dataclasses import dataclass
 
 
-@dataclass
-class RealEstate:
-    name: str
-    ssn: str
-    dob: str
-    assetName: str
-    assetVal: int
+# @dataclass
+# class RealEstate:
+#     name: str
+#     ssn: str
+#     dob: str
+#     assetName: str
+#     assetVal: int
 
+#testing for presence of .env
 ans=load_dotenv('.env')
-
 print(ans)
 
-print(os.getenv("WEB3_PROVIDER_URI"))
-
-name=st.sidebar.text_input("what is your name")
-
+#streamlit form for Date of birth user input
 month = None
 day = None
 year = None
@@ -43,26 +40,15 @@ with st.form("dob_form"):
         if submitted:
             submit=True
 
-dob=f'{month}/{day}/{year}'        
-#Zillow Zestimate API CALL: Code from Rapid API: https://rapidapi.com/s.mahmoud97/api/zillow56/
+dob=f'{month}/{day}/{year}'      
 
-import requests
 
-# url = "https://zillow56.p.rapidapi.com/search"
+#sidebar single field userinputs
 
-# querystring = {"location":"houston, tx","page":"3"}
-
-# headers = {
-# 	"X-RapidAPI-Key": "c0b908adb9mshf759507485b8c2fp18fda3jsn6404f42e8bd6",
-# 	"X-RapidAPI-Host": "zillow56.p.rapidapi.com"
-# }
-
-# response = requests.get(url, headers=headers, params=querystring)
-
-# print(response.json())
-
+name=st.sidebar.text_input("what is your name")
 
 ssn = st.sidebar.text_input("Enter your Social Security Number:", type="password")
+
 
 #check if input meets length requirements
 if ssn:
@@ -71,15 +57,15 @@ if ssn:
     if ssn.isdigit()==False:
         st.error("SSN must be a number.")
 
+#enter ssn again for extra assurance
 ssn_again=st.sidebar.text_input("Enter your Social Security Number Again:", type="password")
-
 
 
 if ssn_again:
     if ssn!=ssn_again:
         st.error("SSNs don't match")
 
-# Create a sidebar text box for address input
+# address input
 address = st.sidebar.text_input("Enter your address")
 
 # Display the entered address
@@ -97,6 +83,11 @@ state = st.sidebar.text_input("Enter your state")
 
 st.write(state) 
 
+asset_url=st.sidebar.text_input("Enter the URL for webpage displaying land asset") #note that this may need to be the Zillow specific URL--future versions will not be so restrictive
+#future versions will not ask for url but rather be able to extrapolate this information from the customer simply providing property address
+
+assetName=st.sidebar.text_input("Enter the name of your asset. ex: Johnson Estate, Dude Ranch etc.")
+
 
 key=os.getenv("ALPACA_API_KEY")
 url=os.getenv("WEB3_PROVIDER_URI")
@@ -104,21 +95,44 @@ url=os.getenv("WEB3_PROVIDER_URI")
 contract_address="0xd9145CCE52D386f254917e481eB44e9943F39138"
 w3 = Web3(Web3.HTTPProvider(url))
 accounts=w3.eth.accounts
+
+#give user option to choose their own digital wallet from dropdown menu
 account = st.selectbox("Select Wallet", options=accounts)
-account=Web3.toChecksumAddress(account)
+#account=Web3.toChecksumAddress(account)
 
 #note make sure abi file is in same directory
 with open(Path('./TokenizedWill.json')) as f:
     property_abi = json.load(f)
 
-
+#Create a ETH contract object that resides in local Ganache machine and is an instance of deployed Property Smart Contract
 contract = w3.eth.contract(
         address=contract_address,
         abi=property_abi
-)       
+)      
 
+#if zillow api is available: 
+assetVal=0
+if key:
+    #code below is from rapidAPI's deployment of the Zillow API: https://rapidapi.com/apimaker/api/zillow-com1/
+    url = asset_url
+
+    querystring = {"zpid":"2080998890"}
+
+    headers = {
+	    "X-RapidAPI-Key": key,
+	    "X-RapidAPI-Host": "zillow-com1.p.rapidapi.com"
+    }
+
+    response = requests.get(url, headers=headers, params=querystring)
+
+    data=response.json()
+    assetVal=int(data['price'])
+else:
+    #if zillow api is not available, fair price appraisal is not gauranteed
+    assetVal=st.sidebar.number_input("Enter the asset value:",step=1)
+    
 def register():
-    hash=contract.functions.registerAsset(account,name,ssn,dob,"House",5000,"https://www.zillow.com/homedetails/12746-Roy-Rd-Brookside-Village-TX-77581/26488510_zpid/").transact({'from':account,'gas':1000000})
+    hash=contract.functions.registerAsset(account,name,ssn,dob,assetName,assetVal,asset_url).transact({'from':account,'gas':1000000})
     receipt = w3.eth.waitForTransactionReceipt(hash)
     st.write("Transaction receipt mined:")
     st.write(dict(receipt))
@@ -144,33 +158,26 @@ else:
     st.sidebar.write('make sure your social security numbers are matching, are numeric, and are 9-digits')
 
 if cont:
-    if len(ssn)==9 or ssn.isdigit()==True and ssn_again==ssn and name and month and day and year and address and zip and submit:
+    if len(ssn)==9 or ssn.isdigit()==True and ssn_again==ssn and name and month and day and year and address and zip and submit and asset_url and assetName:
         #cont_fulfill=True #placeholder
-        st.session_state["name"]=name
-        st.session_state["month"]=month
-        st.session_state["day"]=day
-        st.session_state["year"]=year
-        st.session_state["address"]=address
-        st.session_state["zip"]=zip
-        st.session_state["submit"]=submit
+        # st.session_state["name"]=name
+        # st.session_state["month"]=month
+        # st.session_state["day"]=day
+        # st.session_state["year"]=year
+        # st.session_state["address"]=address
+        # st.session_state["zip"]=zip
+        # st.session_state["submit"]=submit
         
         register()
-
-            #receipt = w3.eth.waitForTransactionReceipt(hash)
-            #st.write("Transaction receipt mined:")
-            #st.write(dict(receipt))
-    
-        #st.title("af;sdjklfadjsklfjaikskjfjsd/fksa;")
-    
         
     else:
         st.write('Make sure all fields are filled and filled to the specifications laid out')
 
 
 
-sampletoken=RealEstate(name="Vishal",ssn="1234567",assetName="house",dob="05/16/2023",assetVal=5)
+# sampletoken=RealEstate(name="Vishal",ssn="1234567",assetName="house",dob="05/16/2023",assetVal=5)
 
-token=RealEstate(name=f'{name}',ssn=f'{ssn}',assetName="house",dob=f'{month}/{day}/{year}',assetVal=5)
+# token=RealEstate(name=f'{name}',ssn=f'{ssn}',assetName="house",dob=f'{month}/{day}/{year}',assetVal=5)
 
 
 
