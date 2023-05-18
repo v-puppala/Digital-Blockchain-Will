@@ -61,7 +61,7 @@ Transaction Receipt
 ![Transaction_receipt](https://github.com/v-puppala/Digital-Blockchain-Will/assets/54637095/116651f8-a506-4b0c-a614-9b795e4ac720)
 
 
-**Demo**
+**Front Demo**
 
 The following is a demo of Vishal's code: form.py which provides a UI for the owner of the will to input attributes regarding their personal information and assets that will be displayed on the tokens.
 
